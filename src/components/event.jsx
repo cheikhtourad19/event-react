@@ -29,13 +29,13 @@ function Event({ event }) {
           you have successfully booked {eventL.name} !
         </Alert>
       )}
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={eventL.img} />
+      <Card>
+        <Card.Img style={{ height: "180px" }} variant="top" src={eventL.img} />
         <Card.Body>
-          <Card.Title>{eventL.name}</Card.Title>
-          <Card.Text>{eventL.price}</Card.Text>
-          <Card.Text>{eventL.nbTickets}</Card.Text>
-          <Card.Text>{eventL.nbParticipants}</Card.Text>
+          <Card.Title style={{ height: "50px" }}>{eventL.name}</Card.Title>
+          <Card.Text>price :{eventL.price}</Card.Text>
+          <Card.Text>number of tickets : {eventL.nbTickets}</Card.Text>
+          <Card.Text>number of participants: {eventL.nbParticipants}</Card.Text>
         </Card.Body>
         <Card.Footer>
           <Button

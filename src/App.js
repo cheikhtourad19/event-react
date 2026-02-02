@@ -2,7 +2,11 @@ import "./App.css";
 import Events from "./components/events";
 
 function App() {
-  return <Events />;
+  return (
+    <>
+      <Events />
+    </>
+  );
 }
 
 export default App;
