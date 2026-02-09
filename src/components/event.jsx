@@ -2,6 +2,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { Alert } from "react-bootstrap";
+import { Link } from "react-router-dom";
 function Event({ event }) {
   const [eventL, setEventL] = useState(event);
   const [showAlert, setShowAlert] = useState(false);
@@ -32,7 +33,9 @@ function Event({ event }) {
       <Card>
         <Card.Img style={{ height: "180px" }} variant="top" src={eventL.img} />
         <Card.Body>
-          <Card.Title style={{ height: "50px" }}>{eventL.name}</Card.Title>
+          <Card.Title style={{ height: "50px" }}>
+            <Link to={`/${eventL.id}`}>{eventL.name}</Link>
+          </Card.Title>
           <Card.Text>price :{eventL.price}</Card.Text>
           <Card.Text>number of tickets : {eventL.nbTickets}</Card.Text>
           <Card.Text>number of participants: {eventL.nbParticipants}</Card.Text>
