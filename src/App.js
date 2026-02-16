@@ -10,7 +10,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Events />} />
-        <Route path="/:event" element={<EventDetail />} />
+        <Route path="/events/:event" element={<EventDetail />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

@@ -1,20 +1,30 @@
 import { useParams } from "react-router-dom";
 import eventsData from "../data/events.json";
 import { Button, Card } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function EventDetail() {
   const eventid = useParams().event;
-  const [event, setEvent] = useState(
-    eventsData.find((event) => event.id === parseInt(eventid)),
-  );
 
-  if (event.img.trim() === "") {
-    event.img = "placeholder.jpg";
-  }
-  if (event.nbTickets === 0) {
-    event.img = "sold_out.png";
-  }
+  const [event, setEvent] = useState(() => {
+    const foundEvent = eventsData.find(
+      (event) => event.id === parseInt(eventid),
+    );
+    return foundEvent;
+  });
+
+  const displayImg =
+    event.img.trim() === ""
+      ? "/placeholder.jpg"
+      : event.nbTickets === 0
+        ? "/sold_out.png"
+        : event.img.startsWith("/")
+          ? event.img
+          : `/${event.img}`;
+
+  useEffect(() => {
+    console.log(displayImg);
+  }, [displayImg]);
   const bookevent = () => {
     event.nbTickets -= 1;
     event.nbParticipants += 1;
@@ -22,7 +32,7 @@ export function EventDetail() {
   };
   return (
     <Card>
-      <Card.Img style={{ height: "180px" }} variant="top" src={event.img} />
+      <Card.Img style={{ height: "180px" }} variant="top" src={displayImg} />
       <Card.Body>
         <Card.Title style={{ height: "50px" }}>{event.name}</Card.Title>
         <Card.Text>price :{event.price}</Card.Text>

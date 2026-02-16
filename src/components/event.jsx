@@ -7,12 +7,14 @@ function Event({ event }) {
   const [eventL, setEventL] = useState(event);
   const [showAlert, setShowAlert] = useState(false);
 
-  if (eventL.img.trim() === "") {
-    eventL.img = "placeholder.jpg";
-  }
-  if (eventL.nbTickets === 0) {
-    eventL.img = "sold_out.png";
-  }
+  const displayImg =
+    eventL.img.trim() === ""
+      ? "/placeholder.jpg"
+      : eventL.nbTickets === 0
+        ? "/sold_out.png"
+        : eventL.img.startsWith("/")
+          ? eventL.img
+          : `/${eventL.img}`;
   const bookevent = () => {
     eventL.nbTickets -= 1;
     eventL.nbParticipants += 1;
@@ -31,10 +33,15 @@ function Event({ event }) {
         </Alert>
       )}
       <Card>
-        <Card.Img style={{ height: "180px" }} variant="top" src={eventL.img} />
+        <Card.Img style={{ height: "180px" }} variant="top" src={displayImg} />
         <Card.Body>
           <Card.Title style={{ height: "50px" }}>
-            <Link to={`/${eventL.id}`}>{eventL.name}</Link>
+            <Link
+              to={`/events/${eventL.id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              {eventL.name}
+            </Link>
           </Card.Title>
           <Card.Text>price :{eventL.price}</Card.Text>
           <Card.Text>number of tickets : {eventL.nbTickets}</Card.Text>

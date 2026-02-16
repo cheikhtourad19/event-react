@@ -11,6 +11,7 @@
   },
   {
     "id": 2,
+    "name": "lorem ipsum",
     "description": "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page",
     "img": "event2.jpg",
     "price": 15,
