@@ -2,11 +2,18 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { deleteEvent } from "../api/api";
 function Event({ event }) {
   const [eventL, setEventL] = useState(event);
   const [showAlert, setShowAlert] = useState(false);
-
+  const navigator = useNavigate();
+  const handleDelete = async (id) => {
+    try {
+      await deleteEvent(id);
+      navigator("/");
+    } catch {}
+  };
   const displayImg =
     eventL.img.trim() === ""
       ? "/placeholder.jpg"
@@ -64,6 +71,15 @@ function Event({ event }) {
             style={{ marginLeft: "10px" }}
           >
             {eventL.like ? "Dislike" : "Like"}
+          </Button>
+          <Link
+            to={`/update-event/${eventL.id}`}
+            style={{ marginLeft: "10px" }}
+          >
+            <Button variant="success">update</Button>
+          </Link>
+          <Button variant="danger" onClick={() => handleDelete(eventL.id)}>
+            Delete
           </Button>
         </Card.Footer>
       </Card>

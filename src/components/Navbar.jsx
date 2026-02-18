@@ -9,6 +9,12 @@ export default function NavigationBar() {
         <NavLink to="/" isActive={({ isActive }) => (isActive ? "active" : "")}>
           Events
         </NavLink>
+        <NavLink
+          to="/add-event"
+          isActive={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Add Event
+        </NavLink>
       </Navbar.Collapse>
     </Navbar>
   );
