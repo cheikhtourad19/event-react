@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getallEvents, editEvent } from "../api/api";
+import useEventStore from "../Zustand-stores/useEventStore";
 
 export default function UpdateEvent() {
   const navigate = useNavigate();
@@ -31,8 +32,11 @@ export default function UpdateEvent() {
     try {
       console.log(event);
       await editEvent(event.id, event);
+      useEventStore.getState().updateEventObject(event);
       navigate("/");
-    } catch {}
+    } catch (error) {
+      console.error("Error updating event:", error);
+    }
   };
 
   return (

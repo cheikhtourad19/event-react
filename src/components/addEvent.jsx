@@ -1,5 +1,6 @@
 import { addEvent } from "../api/api";
 import { useNavigate } from "react-router-dom";
+import useEventStore from "../Zustand-stores/useEventStore";
 
 export default function AddEvent() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function AddEvent() {
     };
     try {
       await addEvent(event);
+      useEventStore.getState().addEventObject(event);
       navigate("/");
     } catch (error) {
       console.error("Error adding event:", error);

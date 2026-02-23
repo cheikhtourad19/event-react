@@ -1,30 +1,25 @@
 import Event from "./event";
 import { useState, useEffect } from "react";
-import { Alert, Button, Navbar } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
-import { getallEvents, addEvent, editEvent, deleteEvent } from "../api/api";
 import { Link } from "react-router-dom";
 import NavigationBar from "./Navbar";
+import useEventStore from "../Zustand-stores/useEventStore";
 
 export default function Events() {
   const [showAlert, setShowAlert] = useState(false);
   const [events, setEvents] = useState([]);
+  const [eventFavorites, setEventFavorites] = useState([]);
+
   useEffect(() => {
-    fatchEvents();
+    useEventStore.getState().fetchEvents();
+    setEvents(useEventStore.getState().events);
+    setEventFavorites(useEventStore.getState().favorites);
     setShowAlert(true);
     setTimeout(() => {
       setShowAlert(false);
     }, 2000);
   }, []);
-
-  const fatchEvents = async () => {
-    try {
-      const response = await getallEvents();
-      setEvents(response.data);
-    } catch (error) {
-      console.error("Error fetching events:", error);
-    }
-  };
 
   return (
     <>
@@ -47,6 +42,15 @@ export default function Events() {
           Add event
         </Button>
       </Link>
+
+      <h1 style={{ marginTop: "20px", textAlign: "center" }}>Favorites</h1>
+      <Row>
+        {/* {eventFavorites.map((event, index) => (
+          <Col key={index}>
+            <Event event={event} />
+          </Col>
+        ))} */}
+      </Row>
     </>
   );
 }

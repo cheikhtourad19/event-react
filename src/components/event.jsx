@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteEvent } from "../api/api";
+import useEventStore from "../Zustand-stores/useEventStore";
 function Event({ event }) {
   const [eventL, setEventL] = useState(event);
   const [showAlert, setShowAlert] = useState(false);
@@ -11,8 +12,14 @@ function Event({ event }) {
   const handleDelete = async (id) => {
     try {
       await deleteEvent(id);
+      useEventStore.getState().deleteEventObject(id);
       navigator("/");
-    } catch {}
+    } catch (error) {
+      console.error("Error deleting event:", error);
+    }
+  };
+  const handleAddToFavorites = (event) => {
+    useEventStore.getState().addFavoriteObject(event);
   };
   const displayImg =
     eventL.img.trim() === ""
@@ -80,6 +87,13 @@ function Event({ event }) {
           </Link>
           <Button variant="danger" onClick={() => handleDelete(eventL.id)}>
             Delete
+          </Button>
+          <Button
+            variant="info"
+            onClick={() => handleAddToFavorites(eventL)}
+            style={{ marginLeft: "10px" }}
+          >
+            Add to favorites
           </Button>
         </Card.Footer>
       </Card>
