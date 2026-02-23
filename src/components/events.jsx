@@ -14,7 +14,9 @@ export default function Events() {
   useEffect(() => {
     useEventStore.getState().fetchEvents();
     setEvents(useEventStore.getState().events);
-    setEventFavorites(useEventStore.getState().favorites);
+    setEventFavorites(
+      useEventStore.getState().events.filter((event) => event.isFavorite),
+    );
     setShowAlert(true);
     setTimeout(() => {
       setShowAlert(false);
@@ -45,11 +47,11 @@ export default function Events() {
 
       <h1 style={{ marginTop: "20px", textAlign: "center" }}>Favorites</h1>
       <Row>
-        {/* {eventFavorites.map((event, index) => (
+        {eventFavorites.map((event, index) => (
           <Col key={index}>
             <Event event={event} />
           </Col>
-        ))} */}
+        ))}
       </Row>
     </>
   );

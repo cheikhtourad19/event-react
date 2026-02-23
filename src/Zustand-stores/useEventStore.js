@@ -16,6 +16,12 @@ const useEventStore = create(
           item.id === updatedEvent.id ? updatedEvent : item,
         ),
       })),
+    addEventToFavorites: (event) =>
+      set((state) => ({
+        events: state.events.map((item) =>
+          item.id === event.id ? { ...item, isFavorite: true } : item,
+        ),
+      })),
     addEventObject: (event) =>
       set((state) => ({
         events: [...state.events, event],

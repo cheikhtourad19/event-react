@@ -19,7 +19,7 @@ function Event({ event }) {
     }
   };
   const handleAddToFavorites = (event) => {
-    useEventStore.getState().addFavoriteObject(event);
+    useEventStore.getState().addEventToFavorites(event);
   };
   const displayImg =
     eventL.img.trim() === ""
